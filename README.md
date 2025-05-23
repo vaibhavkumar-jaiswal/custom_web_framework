@@ -12,7 +12,6 @@ This is a lightweight custom HTTP web framework built entirely using Go's `net` 
 - 🧩 Middleware support (e.g., logging, authentication)
 - 📥 Custom context handling for query parameters, body parsing, etc.
 - 🛡️ Basic error handling and panic recovery
-- 🔐 TLS-ready with self-signed certificates
 
 ---
 
@@ -22,13 +21,11 @@ This is a lightweight custom HTTP web framework built entirely using Go's `net` 
 .
 ├── main.go                         # Entry point with route definitions
 ├── go.mod                          # Go module definition
-├── cert.pem                        # Self-signed TLS certificate
-├── key.pem                         # Private key for TLS
 ├── framework/                      # Core of the web framework
 │   ├── engine.go                   # Engine that handles routing and TCP listener
 │   ├── context.go                  # Custom context for handling requests
-│   ├── middlewares.go             # Built-in middleware like logging
-│   ├── constants.go               # Constants used throughout the framework
+│   ├── middlewares.go              # Built-in middleware like logging
+│   ├── constants.go                # Constants used throughout the framework
 ```
 
 ---
@@ -37,7 +34,7 @@ This is a lightweight custom HTTP web framework built entirely using Go's `net` 
 
 ### ✅ Prerequisites
 
-- Go 1.18 or higher installed
+- Go 1.24 or higher installed
 - Terminal access
 
 ### 🧪 Running the Project
@@ -51,16 +48,6 @@ You’ll see output like:
 ```
 ✅ Server running on :8080
 ```
-
-### 🔒 To run with TLS:
-
-Uncomment the TLS logic and run:
-
-```bash
-go run main.go
-```
-
-Ensure `cert.pem` and `key.pem` are in the same directory.
 
 ---
 
@@ -99,7 +86,7 @@ You can register middleware functions globally using `app.Use()`:
 
 ```go
 app.Use(framework.LoggingMiddleware)
-// app.Use(framework.AuthMiddleware) // example auth middleware (commented)
+app.Use(framework.AuthMiddleware)
 ```
 
 Middleware runs before hitting the final handler, giving you control over logging, authorization, etc.
